@@ -1,0 +1,694 @@
+/* ==========================================
+   METEOVISION
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef3f8;
+    color: #172333;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.topo {
+    background: linear-gradient(
+        135deg,
+        #0b2942,
+        #12639a
+    );
+
+    color: white;
+
+    padding: 22px 35px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.2);
+}
+
+
+.topo h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+
+.topo p {
+    opacity: 0.85;
+    font-size: 14px;
+}
+
+
+.atualizacao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+
+    background: #31d158;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px
+        rgba(49, 209, 88, 0.8);
+}
+
+
+/* ==========================================
+   CONTAINER
+   ========================================== */
+
+.container {
+    width: 94%;
+    max-width: 1400px;
+
+    margin: 25px auto;
+}
+
+
+/* ==========================================
+   BUSCA
+   ========================================== */
+
+.localizacao-box {
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.08);
+
+    margin-bottom: 22px;
+}
+
+
+.busca {
+    display: flex;
+    gap: 10px;
+}
+
+
+.busca input {
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border: 1px solid #ccd5df;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+
+.busca input:focus {
+    border-color: #1683d8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22, 131, 216, 0.1);
+}
+
+
+.busca button {
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 0 18px;
+
+    background: #12639a;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.busca button:hover {
+    background: #0d4f7d;
+}
+
+
+.busca button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+.resultado-local {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    color: #5d6b78;
+}
+
+
+/* ==========================================
+   TÍTULOS
+   ========================================== */
+
+.titulo-secao {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+
+.titulo-secao h2 {
+    font-size: 22px;
+
+    color: #142f45;
+
+    margin-bottom: 4px;
+}
+
+
+.titulo-secao p {
+    color: #697887;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   TEMPO ATUAL
+   ========================================== */
+
+.tempo-atual {
+    margin-bottom: 28px;
+}
+
+
+.cards-atual {
+    display: grid;
+
+    grid-template-columns:
+        2fr
+        repeat(5, 1fr);
+
+    gap: 12px;
+}
+
+
+.card-principal,
+.info-card {
+    background: white;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.07);
+}
+
+
+.card-principal {
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.icone-tempo {
+    font-size: 52px;
+}
+
+
+.temperatura {
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #123c5a;
+}
+
+
+#condicaoAtual {
+    margin-top: 5px;
+
+    color: #617180;
+}
+
+
+.info-card {
+    padding: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
+
+.info-card span {
+    font-size: 22px;
+}
+
+
+.info-card strong {
+    font-size: 19px;
+
+    color: #173f5f;
+}
+
+
+.info-card small {
+    color: #788693;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   MAPA
+   ========================================== */
+
+.mapa-section {
+    margin-bottom: 30px;
+}
+
+
+.mapa-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    height: 590px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+#mapa {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ==========================================
+   BOTÕES DO MAPA
+   ========================================== */
+
+.controle-mapa {
+    position: absolute;
+
+    right: 16px;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        rgba(20, 30, 45, 0.94);
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.35);
+
+    transition: 0.2s;
+}
+
+
+.controle-mapa:hover {
+    transform: scale(1.07);
+
+    background: #243c55;
+}
+
+
+.controle-mapa.ativo {
+    background: #1683ff;
+
+    box-shadow:
+        0 0 14px
+        rgba(22, 131, 255, 0.75);
+}
+
+
+.radar-btn {
+    top: 16px;
+}
+
+
+.satelite-btn {
+    top: 76px;
+}
+
+
+.voltar-btn {
+    top: 136px;
+}
+
+
+/* ==========================================
+   LEGENDA RADAR
+   ========================================== */
+
+.legenda-radar {
+    display: none;
+
+    position: absolute;
+
+    left: 18px;
+    bottom: 18px;
+
+    z-index: 1000;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0, 0, 0, 0.2);
+}
+
+
+.gradiente-radar {
+    width: 110px;
+    height: 10px;
+
+    border-radius: 5px;
+
+    background: linear-gradient(
+        90deg,
+        #74e6ff,
+        #24a7ff,
+        #2455ff,
+        #8d20ff,
+        #ff20a8,
+        #ff2020
+    );
+}
+
+
+/* ==========================================
+   MENSAGEM RADAR
+   ========================================== */
+
+.mensagem-radar {
+    display: none;
+
+    position: absolute;
+
+    left: 50%;
+    top: 20px;
+
+    transform: translateX(-50%);
+
+    z-index: 1000;
+
+    background:
+        rgba(15, 30, 45, 0.9);
+
+    color: white;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   PREVISÃO
+   ========================================== */
+
+.previsao-section {
+    margin-bottom: 35px;
+}
+
+
+.previsao-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 12px;
+}
+
+
+.previsao-card {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 18px 12px;
+
+    text-align: center;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.07);
+
+    min-height: 240px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+.previsao-dia {
+    font-weight: bold;
+
+    color: #163d59;
+}
+
+
+.previsao-data {
+    color: #7b8995;
+
+    font-size: 12px;
+}
+
+
+.previsao-icone {
+    font-size: 38px;
+
+    margin: 8px 0;
+}
+
+
+.previsao-condicao {
+    font-size: 13px;
+
+    color: #566674;
+
+    min-height: 32px;
+}
+
+
+.max {
+    font-size: 21px;
+
+    font-weight: bold;
+
+    color: #e04b35;
+}
+
+
+.min {
+    font-size: 16px;
+
+    color: #3181b9;
+}
+
+
+.chance-chuva {
+    font-size: 11px;
+
+    color: #42799d;
+
+    margin-top: 5px;
+}
+
+
+.precipitacao {
+    font-size: 11px;
+
+    color: #6b7781;
+}
+
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+footer {
+    text-align: center;
+
+    padding: 25px;
+
+    color: #687886;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 1000px) {
+
+    .cards-atual {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .previsao-grid {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .topo {
+        padding: 18px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+
+    .container {
+        width: 96%;
+    }
+
+
+    .busca {
+        flex-direction: column;
+    }
+
+
+    .busca button {
+        min-height: 44px;
+    }
+
+
+    .cards-atual {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .card-principal {
+        grid-column: span 2;
+    }
+
+
+    .mapa-wrapper {
+        height: 500px;
+    }
+
+
+    .previsao-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .cards-atual {
+        grid-template-columns: 1fr;
+    }
+
+
+    .card-principal {
+        grid-column: span 1;
+    }
+
+
+    .previsao-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

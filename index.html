@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MeteoVision</title>
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- CSS do site -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topo">
+
+        <div>
+            <h1>MeteoVision</h1>
+
+            <p>
+                Monitoramento meteorológico em tempo real
+            </p>
+        </div>
+
+        <div class="atualizacao">
+
+            <span class="status-dot"></span>
+
+            <span id="statusTexto">
+                Conectando...
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+
+        <!-- ================= BUSCA ================= -->
+
+        <section class="localizacao-box">
+
+            <div class="busca">
+
+                <input
+                    id="inputLocal"
+                    type="text"
+                    placeholder="Digite uma cidade ou região..."
+                >
+
+                <button id="btnBuscar">
+                    Buscar
+                </button>
+
+                <button id="btnLocalizacao">
+                    📍 Minha localização
+                </button>
+
+            </div>
+
+            <div
+                id="resultadoLocal"
+                class="resultado-local"
+            >
+                Local selecionado: Mandirituba, PR
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= TEMPO ATUAL ================= -->
+
+        <section class="tempo-atual">
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <h2>
+                        Tempo em tempo real
+                    </h2>
+
+                    <p>
+                        Atualização automática a cada 5 minutos
+                    </p>
+
+                </div>
+
+                <span id="horaAtualizacao">
+                    --:--
+                </span>
+
+            </div>
+
+
+            <div class="cards-atual">
+
+
+                <div class="card-principal">
+
+                    <div
+                        id="iconeAtual"
+                        class="icone-tempo"
+                    >
+                        🌤️
+                    </div>
+
+                    <div>
+
+                        <div
+                            id="temperaturaAtual"
+                            class="temperatura"
+                        >
+                            --°C
+                        </div>
+
+                        <div id="condicaoAtual">
+                            Carregando...
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="info-card">
+
+                    <span>💧</span>
+
+                    <strong id="umidadeAtual">
+                        --%
+                    </strong>
+
+                    <small>
+                        Umidade
+                    </small>
+
+                </div>
+
+
+
+                <div class="info-card">
+
+                    <span>🌧️</span>
+
+                    <strong id="chuvaAtual">
+                        -- mm
+                    </strong>
+
+                    <small>
+                        Precipitação
+                    </small>
+
+                </div>
+
+
+
+                <div class="info-card">
+
+                    <span>🧭</span>
+
+                    <strong id="pressaoAtual">
+                        ---- hPa
+                    </strong>
+
+                    <small>
+                        Pressão
+                    </small>
+
+                </div>
+
+
+
+                <div class="info-card">
+
+                    <span>💨</span>
+
+                    <strong id="ventoAtual">
+                        -- km/h
+                    </strong>
+
+                    <small>
+                        Vento
+                    </small>
+
+                </div>
+
+
+
+                <div class="info-card">
+
+                    <span>💨</span>
+
+                    <strong id="rajadaAtual">
+                        -- km/h
+                    </strong>
+
+                    <small>
+                        Rajada
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= MAPA ================= -->
+
+        <section class="mapa-section">
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <h2>
+                        Mapa meteorológico
+                    </h2>
+
+                    <p>
+                        Radar de precipitação e imagens de satélite
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="mapa-wrapper">
+
+                <div id="mapa"></div>
+
+
+                <!-- RADAR -->
+
+                <button
+                    id="btnRadar"
+                    class="controle-mapa radar-btn"
+                    title="Mostrar/ocultar radar"
+                >
+                    📡
+                </button>
+
+
+                <!-- SATÉLITE -->
+
+                <button
+                    id="btnSatelite"
+                    class="controle-mapa satelite-btn"
+                    title="Mostrar mapa de satélite"
+                >
+                    🛰️
+                </button>
+
+
+                <!-- VOLTAR -->
+
+                <button
+                    id="btnVoltarLocal"
+                    class="controle-mapa voltar-btn"
+                    title="Voltar para o local selecionado"
+                >
+                    📍
+                </button>
+
+
+                <!-- LEGENDA RADAR -->
+
+                <div
+                    id="legendaRadar"
+                    class="legenda-radar"
+                >
+
+                    <span>
+                        Chuva fraca
+                    </span>
+
+                    <div class="gradiente-radar"></div>
+
+                    <span>
+                        Chuva intensa
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="mensagemRadar"
+                    class="mensagem-radar"
+                >
+                    Radar carregando...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PREVISÃO ================= -->
+
+        <section class="previsao-section">
+
+            <div class="titulo-secao">
+
+                <div>
+
+                    <h2>
+                        Previsão para 7 dias
+                    </h2>
+
+                    <p>
+                        Atualização automática a cada 30 minutos
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="previsao"
+                class="previsao-grid"
+            >
+
+                <p>
+                    Carregando previsão...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <strong>
+            MeteoVision
+        </strong>
+
+        · Dados meteorológicos em tempo real
+
+    </footer>
+
+
+
+    <!-- Leaflet -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
