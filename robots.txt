@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rbr-maker.github.io/meteovision/sitemap.xml
